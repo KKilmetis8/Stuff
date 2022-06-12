@@ -1,0 +1,63 @@
+nclude <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <math.h>
+
+int main ()
+{
+	double r=3.0, density=0.0, ran=0.0, mass=0.0 ;
+	double dist=36.0,seed=0.0, sum=0.0, sum2=0.0, x=0.0, y=0.0;
+	double comx=0.0, comy=0.0, sumx=0.0, sumy=0.0, ersumx=0.0, ersumy=0.0, erx=0.0, ery=0.0;
+	int i, Ntoy, hit=0;
+
+srand(time(NULL));
+ran=(((double)rand()/(double)RAND_MAX) * 6.0)-3;
+printf(" Please provide the number of iterations \n");
+scanf(" %d",&Ntoy);
+printf("Number of iterations is %d",Ntoy);
+
+for(i=0;i<Ntoy+1;i++)
+{
+x=ran;
+ran=(((double)rand()/(double)RAND_MAX) * 6.0)-3;
+y=ran;
+	if (x*x+y*y<=9.0)
+	{	
+		if ((x>=1.0 || x<=-1.0) || (y>=1.0 || y<=-1.0))
+    	{  
+			if ((x>=-1.5 || x<=-2.5) || (y>=0.5 || y<=-0.5)) 
+			{   density=1+x*x+y*y;
+				//for mass
+				sum=sum+density;
+			    sum2=sum2+density*density;
+				//for center of mass 
+				sumx=sumx+x*density;
+				sumy=sumy+y*density;
+				ersumx=sumx+x*x*density*density;
+				ersumy=sumy+y*y*density*density;
+			}
+		}
+	}
+ran=(((double)rand()/(double)RAND_MAX) * 6.0)-3;
+}
+
+sum=sum/Ntoy ;
+sum2=sum2/Ntoy;
+
+
+double esum=0.0, emass=0.0;
+esum=sqrt((sum2-sum*sum)/Ntoy);
+mass=sum*dist;
+emass=esum*dist;
+
+comx=dist*sumx/(Ntoy*mass);
+comy=dist*sumy/(Ntoy*mass);
+erx=dist* sqrt(((ersumx/Ntoy - (sumx/Ntoy * sumx/Ntoy))/ Ntoy))/mass;
+ery=dist* sqrt(((ersumy/Ntoy - (sumy/Ntoy * sumy/Ntoy))/ Ntoy))/mass;
+
+printf(" Mass= %lf +- %lf \n",mass,emass);
+printf(" Xcenter= %lf +- %lf \n",comx,erx);
+printf(" Ycenter= %lf +- %lf \n",comy,ery); 
+return 0;
+}
+							

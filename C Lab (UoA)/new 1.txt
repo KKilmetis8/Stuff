@@ -1,0 +1,20 @@
+#include <stdio.h>
+
+int main (void)
+{
+int n,m,p,i,j ;
+printf("In this Program we will multiply a MxN matrix with a NxP matrix \n");
+printf("Give number of rows of matrix A, M= ");
+scanf("%d",m);
+printf("Give number of columns of matrix A, N= \n");
+scanf("%d",n);
+printf("Give number of columns of matrix B, P= \n");
+scanf("%d",p);
+
+double a[m][n], b[n][p], c[m][p];
+
+printf(" Please give me the elements of Matrix A \n");
+for (i=0; i<m; ++i)
+{
+scanf("%lf",&a[i][j]);
+}
